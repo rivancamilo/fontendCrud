@@ -18,7 +18,7 @@ export class EditarUsuarioComponent implements OnInit {
   paisesLocales:any [];
   forma:FormGroup;
   tituloPag:string;
-  usuarioEdit:any [];
+  usuarioEdit:any[];
 
   constructor(
     private userService:UsuariosService,
@@ -49,8 +49,8 @@ export class EditarUsuarioComponent implements OnInit {
       /******************************************************
             Inicializamos el formulario
       ******************************************************/
-      this.crearFormulario();
-      this.getUsuario();
+     this.crearFormulario();
+     this.getUsuario();
 
   }
 
@@ -60,7 +60,7 @@ export class EditarUsuarioComponent implements OnInit {
     crearFormulario(){
 
         this.forma = this.fb.group({
-            tipoId   : ['',[Validators.required]],
+            tipoId   : [,[Validators.required]],
             numeroId : ['',[Validators.required, Validators.minLength(4)]],
             nombre   : ['',[Validators.required, Validators.minLength(4)]],
             apellido : ['',[Validators.required, Validators.minLength(4)]],
@@ -97,26 +97,33 @@ export class EditarUsuarioComponent implements OnInit {
     }
 
 
-getUsuario(){
-    /******************************************************
-    Obtenemos todos los usuarios de la BD
-    ******************************************************/
-    this.routerParams.params.subscribe(parametro =>{
+    getUsuario(){
+        /******************************************************
+        Obtenemos todos los usuarios de la BD
+        ******************************************************/
+        this.routerParams.params.subscribe(parametro =>{
 
-        this.userService.getUsuarioEdit(parametro['id']).subscribe( user =>{
-        //this.usuarios = user['usuarios'];
-        console.log(user.usurio);
-        },error =>{
-        console.log(error)
+            this.userService.getUsuarioEdit(parametro['id']).subscribe( user =>{
+                //this.usuarioEdit = user;
+                this.forma.setValue({
+                  tipoId:user.tipoId,
+                  numeroId:user.numeroId,
+                  nombre:user.nombre,
+                  email:user.email,
+                  pais:user.pais,
+                  barrio:user.barrio,
+                  apellido:user.apellidos,
+                  numCel:user.numCel,
+                  ciudad:user.ciudad
+                })
+                console.log(user);
+            },error =>{
+            console.log(error)
+            });
+
         });
 
-    });
-
-}
-
-
-
-
+    }
 
 
 
