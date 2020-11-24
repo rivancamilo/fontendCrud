@@ -1,0 +1,108 @@
+<div class="main-panel">
+    <div class="container">
+        <div class="page-inner">
+            <div class="page-header">
+                <h4 class="page-title">{{tituloPag}}</h4>
+                <ul class="breadcrumbs">
+                    <li class="nav-home">
+                        <a href="#">
+                            <i class="flaticon-home"></i>
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Forms</a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Basic Form</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form [formGroup]="forma" (ngSubmit)="guardar()">
+                                <div class="row mt-5">
+                                    <div class="col-md-6">
+                                        <!-- Tipo de Documento -->
+                                        <div class="form-group">
+                                            <label for="tipoId">Tipo de Documento</label>
+                                            <select class="form-control" id="tipoId" name="tipoId" formControlName="tipoId" [class.is-invalid]="tipoIDNoValid" [class.is-valid]="tipoIDValid">
+                                                <option value="CC">CC</option>
+                                                <option value="TI">TI</option>
+                                                <option value="CE">CE</option>
+                                            </select>
+                                            <small id="tipoIDHelp" class="form-text text-muted" *ngIf="tipoIDNoValid">No has seleccionado ninguna opción</small>
+                                        </div>
+                                        <!-- Nombre del usuario -->
+                                        <div class="form-group">
+                                            <label for="nombre">Nombre</label>
+                                            <input type="text" class="form-control" id="nombre" name="nombre" formControlName="nombre" [class.is-invalid]="nombreNoValid" [class.is-valid]="nombreValid" />
+                                            <small id="nombreHelp" class="form-text text-muted text-danger" *ngIf="nombreNoValid">Campo obligatorio</small>
+                                        </div>
+                                        <!-- Email del usuario -->
+                                        <div class=" form-group ">
+                                            <label for="email ">Email</label>
+                                            <input type="email " class="form-control" id="email" name="email" formControlName="email" [class.is-invalid]="emailNoValid" [class.is-valid]="emailValid" />
+                                            <small id="emailHelp " class="form-text text-muted" *ngIf="emailNoValid">Campo obligatorio</small>
+                                        </div>
+                                        <!-- Pais del usuario -->
+                                        <div class="form-group ">
+                                            <label for="pais ">Pais</label>
+                                            <select class="form-control " id="pais " name="pais" formControlName="pais" [class.is-invalid]="paisNoValid" [class.is-valid]="paisValid">
+                                                <option selected>Selecciona una Opcion</option>
+                                                <option *ngFor="let itemPais of paisesLocales " value="{{ itemPais.nombre }}">{{ itemPais.nombre }}</option>
+                                            </select>
+                                            <small id="paisHelp" class="form-text text-muted" *ngIf="paisNoValid">No has seleccionado ninguna opción</small>
+                                        </div>
+
+                                        <div class="form-group ">
+                                            <label for="barrio">Barrio</label>
+                                            <input type="text " class="form-control " id="barrio" name="barrio" formControlName="barrio" [class.is-invalid]="barrioNoValid" [class.is-valid]="barrioValid" />
+                                            <small id="barrioHelp " class="form-text text-muted" *ngIf="barrioNoValid">Campo obligatorio</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 ">
+
+                                        <div class="form-group ">
+                                            <label for="numeroId">Numero de Documento</label>
+                                            <input type="number " class="form-control" id="numeroId" name="numeroId" formControlName="numeroId" [class.is-invalid]="numeroIdNoValid" [class.is-valid]="numeroIdValid" />
+                                            <small id="numeroIDHelp " class="form-text text-muted" *ngIf="numeroIdNoValid">Campo obligatorio</small>
+                                        </div>
+
+                                        <div class="form-group ">
+                                            <label for="apellidos ">Apellidos</label>
+                                            <input type="text " class="form-control " id="apellidos" name="apellidos" formControlName="apellido" [class.is-invalid]="apellidoNoValid" [class.is-valid]="apellidoValid" />
+                                            <small id="apellidoHelp " class="form-text text-muted" *ngIf="apellidoNoValid">Campo obligatorio</small>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label for="numCel ">Numero Celular</label>
+                                            <input type="number " class="form-control " id="numCel" name="numCel" formControlName="numCel" [class.is-invalid]="numContactoNoValid" [class.is-valid]="numContactoValid" />
+                                            <small id="numcelHelp " class="form-text text-muted" *ngIf="numContactoNoValid">Campo obligatorio</small>
+                                        </div>
+                                        <div class="form-group form-show-validation ">
+                                            <label for="ciudad ">Ciudad</label>
+                                            <input type="text " class="form-control " id="ciudad" name="ciudad" formControlName="ciudad" [class.is-invalid]="ciudadNoValid" [class.is-valid]="ciudadValid" />
+                                            <small id="ciudadHelp " class="form-text text-muted" *ngIf="ciudadNoValid">Campo obligatorio</small>
+                                        </div>
+                                        <div class="form-group mt-4 ">
+                                            <button type="submit " class="btn btn-primary">Guardar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>

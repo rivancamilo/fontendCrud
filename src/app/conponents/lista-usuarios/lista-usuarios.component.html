@@ -1,0 +1,75 @@
+<div class="main-panel">
+    <div class="container">
+        <div class="page-inner">
+            <div class="page-header">
+                <h4 class="page-title">Lista de Usuarios</h4>
+                <ul class="breadcrumbs">
+                    <li class="nav-home">
+                        <a href="#">
+                            <i class="flaticon-home"></i>
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Lista de Usuarios</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-head-bg-primary mt-4 table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Tipo ID</th>
+                                                <th scope="col">Num ID</th>
+                                                <th scope="col">Nombre</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Contacto</th>
+                                                <th scope="col">Pais</th>
+                                                <th scope="col">Ciudad</th>
+                                                <th scope="col">Barrio</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let usuario of usuarios">
+                                                <td>{{ usuario.tipoId }}</td>
+                                                <td>{{ usuario.numeroId }}</td>
+                                                <td>{{ usuario.nombre }}</td>
+                                                <td>{{ usuario.email }}</td>
+                                                <td>{{ usuario.numCel }}</td>
+                                                <td>{{ usuario.pais }}</td>
+                                                <td>{{ usuario.ciudad }}</td>
+                                                <td>{{ usuario.barrio }}</td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                          Acciones
+                                                        </a>
+
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                            <a class="dropdown-item" [routerLink]="[ '/editarusuario', usuario._id ]">Editar</a>
+                                                            <a class="dropdown-item" (click)="eliminarUser(usuario._id)">Eliminar</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>
