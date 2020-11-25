@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuariosService } from '../../servicio/usuarios.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-nuevo-usuario',
@@ -33,7 +34,7 @@ export class NuevoUsuarioComponent implements OnInit {
       ******************************************************/
        this.userService.getPaises().subscribe( pais =>{
         this.paisesLocales = pais['paises'];
-        console.log(pais['paises']);
+        //console.log(pais['paises']);
       },error =>{
         console.log(error)
       });
@@ -44,6 +45,63 @@ export class NuevoUsuarioComponent implements OnInit {
       this.crearFormulario();
 
   }
+
+
+    /******************************************************************************
+   ******************    Creacion del formulario      **************************************
+  ******************************************************************************/
+ crearFormulario(){
+  this.forma = this.fb.group({
+      tipoId   : ['',[Validators.required]],
+      numeroId : ['',[Validators.required, Validators.minLength(4)]],
+      nombre   : ['',[Validators.required, Validators.minLength(4)]],
+      apellidos: ['',[Validators.required, Validators.minLength(4)]],
+      email    : ['',[Validators.required, Validators.minLength(4),Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]],
+      numCel   : ['',[Validators.required, Validators.minLength(9)]],
+      pais     : ['',[Validators.required, Validators.minLength(4)]],
+      ciudad   : ['',[Validators.required, Validators.minLength(4)]],
+      barrio   : ['',[Validators.required, Validators.minLength(4)]],
+  })
+
+}
+
+
+guardar(){
+
+if(this.forma.invalid){
+    return Object.values(this.forma.controls).forEach( control =>{
+      control.markAsTouched();
+    })
+
+}else{
+
+  this.userService.setCreateUsuario(this.forma.value).subscribe(
+    response =>{
+      //console.log(response);
+      //Alert
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Usuario Nuevo',
+        text: 'Usuario agregado correctamente!!!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      this.router.navigate( ['/inicio'] );
+    },
+    error=>{
+      console.log(error);
+    }
+  )
+
+}
+}
+
+
+
+
+
+
 
   /******************************************************************************
    ******************    Validaciones      **************************************
@@ -93,11 +151,12 @@ export class NuevoUsuarioComponent implements OnInit {
   }
 
   get apellidoNoValid(){
-    return this.forma.get('apellido').invalid && this.forma.get('apellido').touched;
+    return this.forma.get('apellidos').invalid && this.forma.get('apellidos').touched;
   }
   get apellidoValid(){
-    return this.forma.get('apellido').valid && this.forma.get('apellido').touched;
+    return this.forma.get('apellidos').valid && this.forma.get('apellidos').touched;
   }
+
 
 
   get numContactoNoValid(){
@@ -116,46 +175,7 @@ export class NuevoUsuarioComponent implements OnInit {
 
 
 
-  /******************************************************************************
-   ******************    Creacion del formulario      **************************************
-  ******************************************************************************/
-  crearFormulario(){
-      this.forma = this.fb.group({
-          tipoId   : ['',[Validators.required]],
-          numeroId : ['',[Validators.required, Validators.minLength(4)]],
-          nombre   : ['',[Validators.required, Validators.minLength(4)]],
-          apellido : ['',[Validators.required, Validators.minLength(4)]],
-          email    : ['',[Validators.required, Validators.minLength(4),Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]],
-          numCel   : ['',[Validators.required, Validators.minLength(9)]],
-          pais     : ['',[Validators.required, Validators.minLength(4)]],
-          ciudad   : ['',[Validators.required, Validators.minLength(4)]],
-          barrio   : ['',[Validators.required, Validators.minLength(4)]],
-      })
 
-  }
-
-
-  guardar(){
-
-    if(this.forma.invalid){
-        return Object.values(this.forma.controls).forEach( control =>{
-          control.markAsTouched();
-        })
-
-    }else{
-
-      this.userService.setCreateUsuario(this.forma.value).subscribe(
-        response =>{
-          console.log(response);
-          this.router.navigate( ['inicio'] );
-        },
-        error=>{
-          console.log(error);
-        }
-      )
-
-    }
-  }
 
 
 

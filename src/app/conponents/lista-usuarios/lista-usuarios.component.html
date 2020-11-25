@@ -55,8 +55,9 @@
                                                         </a>
 
                                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                                <a class="dropdown-item" [routerLink]="[ '/editarusuario', usuario._id ]">Editar</a>
-                                                                <a class="dropdown-item" (click)="eliminarUser(usuario._id)">Eliminar</a>
+                                                                <a class="dropdown-item" [routerLink]="[ '/editarusuario', usuario._id ]">Editar</a> <button class="dropdown-item " type="button" (click)="eliminarUser(usuario._id)">Eliminar</button>
+
+                                                                <!-- <a class="dropdown-item cursor">camilo</a> -->
                                                             </div>
                                                         </div>
                                                     </td>

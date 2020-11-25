@@ -42,6 +42,7 @@ export class UsuariosService {
   *****************************************************/
   deleteUsuario(id){
     let headers = new HttpHeaders().set('Content-Type','application/json');
+    console.log(`id del usuario para eliminar ${id}`)
     return this.http.delete(`${this.url}borrarusuario/${id}`, {headers:headers});
   }
 

@@ -32,6 +32,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+
     RouterModule.forRoot( APPROUTES , {useHash:true})
   ],
   providers: [UsuariosService],

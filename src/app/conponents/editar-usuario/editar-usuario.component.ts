@@ -4,8 +4,6 @@ import { UsuariosService } from '../../servicio/usuarios.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-
-
 @Component({
   selector: 'app-editar-usuario',
   templateUrl: '../nuevo-usuario/nuevo-usuario.component.html',
@@ -28,8 +26,6 @@ export class EditarUsuarioComponent implements OnInit {
     ) {
 
       this.tituloPag = "Editar Usuario";
-
-
 
 
     }
@@ -60,10 +56,10 @@ export class EditarUsuarioComponent implements OnInit {
     crearFormulario(){
 
         this.forma = this.fb.group({
-            tipoId   : [,[Validators.required]],
+            tipoId   : ['',[Validators.required]],
             numeroId : ['',[Validators.required, Validators.minLength(4)]],
             nombre   : ['',[Validators.required, Validators.minLength(4)]],
-            apellido : ['',[Validators.required, Validators.minLength(4)]],
+            apellidos: ['',[Validators.required, Validators.minLength(4)]],
             email    : ['',[Validators.required, Validators.minLength(4),Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]],
             numCel   : ['',[Validators.required, Validators.minLength(9)]],
             pais     : ['',[Validators.required, Validators.minLength(4)]],
@@ -83,15 +79,20 @@ export class EditarUsuarioComponent implements OnInit {
 
         }else{
 
-            this.userService.setCreateUsuario(this.forma.value).subscribe(
-                response =>{
-                    console.log(response);
-                    this.router.navigate( ['inicio'] );
-                },
-                error=>{
-                    console.log(error);
-                }
-            )
+          this.routerParams.params.subscribe( parametro =>{
+              //console.log(parametro.id)
+              this.userService.updateUsuario(parametro.id,this.forma.value).subscribe(
+                  response =>{
+                      console.log(response);
+                      this.router.navigate( ['/inicio'] );
+                  },
+                  error=>{
+                      console.log(error);
+                  }
+              );
+
+          });
+
 
         }
     }
@@ -112,13 +113,13 @@ export class EditarUsuarioComponent implements OnInit {
                   email:user.email,
                   pais:user.pais,
                   barrio:user.barrio,
-                  apellido:user.apellidos,
+                  apellidos:user.apellidos,
                   numCel:user.numCel,
                   ciudad:user.ciudad
                 })
-                console.log(user);
+                //console.log(user);
             },error =>{
-            console.log(error)
+                console.log(error)
             });
 
         });
@@ -176,10 +177,10 @@ export class EditarUsuarioComponent implements OnInit {
   }
 
   get apellidoNoValid(){
-    return this.forma.get('apellido').invalid && this.forma.get('apellido').touched;
+    return this.forma.get('apellidos').invalid && this.forma.get('apellidos').touched;
   }
   get apellidoValid(){
-    return this.forma.get('apellido').valid && this.forma.get('apellido').touched;
+    return this.forma.get('apellidos').valid && this.forma.get('apellidos').touched;
   }
 
 
